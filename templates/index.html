@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FastAPI Calculator</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="calculator">
+    <div class="display">
+        <input type="number" id="num1" placeholder="First Number">
+        <input type="number" id="num2" placeholder="Second Number">
+    </div>
+
+    <div class="buttons">
+        <button onclick="calc('+')">+</button>
+        <button onclick="calc('-')">-</button>
+        <button onclick="calc('*')">×</button>
+        <button onclick="calc('/')">÷</button>
+        <button onclick="calc('%')">%</button>
+    </div>
+
+    <h2 id="result">0</h2>
+</div>
+
+<script>
+async function calc(op){
+    let a = document.getElementById("num1").value;
+    let b = document.getElementById("num2").value;
+
+    let response = await fetch(`/calculate?a=${a}&b=${b}&op=${op}`);
+    let data = await response.json();
+
+    document.getElementById("result").innerText = data.result;
+}
+</script>
+
+</body>
+</html>
