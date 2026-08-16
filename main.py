@@ -18,7 +18,9 @@ async def home(request: Request):
 @app.get("/calculate")
 def calculate(a: float, b: float, op: str):
 
-    if op == "+":
+    # A raw '+' in a query string is decoded as a space by URL parsers.
+    # Accept it for compatibility with previously deployed frontend versions.
+    if op in ("+", " "):
         result = a + b
     elif op == "-":
         result = a - b
